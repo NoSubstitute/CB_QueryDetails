@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CB_QueryDetails</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <?!= include("page-css"); ?>
+  </head>
+  <body>
+ 
+  <div class="container">
+
+    <h2>CB_QueryDetails</h2>
+    <h3>Showing Device Details of incoming serial
+
+    <h5>Results</h5>
+    <table class="striped">
+        <tr>
+            <td><h6>Given Serial</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBsns"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Found Serial</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBs"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Device OU</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBOUs"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Device Status</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBstatuss"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Last Sync</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBlastsyncs"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>ChromeOS Version</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBosversions"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Annotated AssetId</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBassets"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Annotated User</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBusers"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Notes</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBnotes"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>MAC Adress</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBmacAddresss"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Auto Update Expiration</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBOUautoUpdateExpirations"></h6></td>
+        </tr>
+        <tr>
+            <td><h6>Most Recent User</h6></td>
+            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBRecents"></h6></td>
+        </tr>
+    </table>
+    <table>
+      <thead>
+      <tr>
+          <th><h6>List of recent users</h6></th>
+      </tr>
+      </thead>
+      <tbody id="idCBRecentUsers0s">
+      </tbody>
+    </table>
+    <!-- <table>
+      <thead>
+      <tr>
+          <th><h6>List of recent users Array</h6></th>
+      </tr>
+      </thead>
+      <tbody id="idCBRecentUsers3">
+      </tbody>
+    </table> -->
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<?!= include("pageSerial-js"); ?>
+
+  </body>
+</html>
