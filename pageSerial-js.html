@@ -1,0 +1,60 @@
+<script>
+	  document.getElementById('idCBsns').readOnly = true;
+    document.getElementById('idCBs').readOnly = true;
+    document.getElementById('idCBOUs').readOnly = true;
+    document.getElementById('idCBRecents').readOnly = true;
+    document.getElementById('idCBstatuss').readOnly = true;
+    document.getElementById('idCBlastsyncs').readOnly = true;
+    document.getElementById('idCBosversions').readOnly = true;
+    document.getElementById('idCBassets').readOnly = true;
+    document.getElementById('idCBusers').readOnly = true;
+    document.getElementById('idCBnotes').readOnly = true;
+    document.getElementById('idCBmacAddresss').readOnly = true;
+    document.getElementById('idCBOUautoUpdateExpirations').readOnly = true;
+    document.getElementById('idCBRecents').readOnly = true;
+    document.getElementById('idCBRecentUsers0s').readOnly = true;
+
+    document.addEventListener("DOMContentLoaded", function() {
+    fetchCBOUs()
+});
+
+    function fetchCBOUs(){
+        google.script.run
+        .withSuccessHandler(printCBOUs)
+        .findCBOUs();
+    }
+
+        window.printCBOUs = function(CBOU) {
+        document.getElementById('idCBsns').value = CBOU[0];
+        document.getElementById('idCBs').value = CBOU[1];
+        document.getElementById('idCBOUs').value = CBOU[2];
+        document.getElementById('idCBstatuss').value = CBOU[3];
+        document.getElementById('idCBlastsyncs').value = CBOU[4];
+        document.getElementById('idCBosversions').value = CBOU[5];
+        document.getElementById('idCBassets').value = CBOU[6];
+        document.getElementById('idCBusers').value = CBOU[7];
+        document.getElementById('idCBnotes').value = CBOU[8];
+        document.getElementById('idCBmacAddresss').value = CBOU[9];
+        document.getElementById('idCBOUautoUpdateExpirations').value = CBOU[10];
+        document.getElementById('idCBRecents').value = CBOU[11];
+        
+        console.log('Device info: ' + CBOU);
+
+        var list0 = CBOU[12];
+        console.log('list0 is array ' + Array.isArray(list0));
+        console.log(list0);
+        console.log(list0.length);
+        for (i=0; i<list0.length; i++) {
+          console.log(i);
+          var user0 = list0[i].email;
+          console.log(user0);
+          var type0 = list0[i].type;
+          console.log(type0);
+        let html0='<style>td,th{border:0px solid black;}</style><table>';
+        html0+='<tr><td>' + user0 + '</td></tr>';
+        html0+='</table>';
+        var myTable0 = document.getElementById("idCBRecentUsers0s");
+        myTable0.insertAdjacentHTML("beforeend", html0);
+        }
+    }
+</script>
