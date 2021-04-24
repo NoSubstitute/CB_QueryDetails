@@ -5,6 +5,7 @@ function findCBOUs() {
   var chromebooklist = AdminDirectory.Chromeosdevices.list('my_customer', {query: sernoquery}).chromeosdevices;
   if (!chromebooklist) {{var serno = "Wrong serial or outside your school/s"};} 
   else {
+    // Only grab the first matching device, if it isn't an exact match
     var serial = chromebooklist[0].serialNumber;
     if (chromebooklist[0].orgUnitPath) {var ou = chromebooklist[0].orgUnitPath} else {var ou = ""};
     if (chromebooklist[0].status) {var status = chromebooklist[0].status} else {var status = ""};
