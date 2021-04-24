@@ -13,6 +13,7 @@
     document.getElementById('idCBOUautoUpdateExpirations').readOnly = true;
     document.getElementById('idCBRecents').readOnly = true;
     document.getElementById('idCBRecentUsers0s').readOnly = true;
+    document.getElementById('idActionResult').readOnly = true;
 
     document.addEventListener("DOMContentLoaded", function() {
     fetchCBOUs()
@@ -37,24 +38,52 @@
         document.getElementById('idCBmacAddresss').value = CBOU[9];
         document.getElementById('idCBOUautoUpdateExpirations').value = CBOU[10];
         document.getElementById('idCBRecents').value = CBOU[11];
+
+        document.getElementById('idActionResult').value = "Current status: " + CBOU[3];
         
-        console.log('Device info: ' + CBOU);
+        // console.log('Device info: ' + CBOU);
 
         var list0 = CBOU[12];
-        console.log('list0 is array ' + Array.isArray(list0));
-        console.log(list0);
-        console.log(list0.length);
+        // console.log('list0 is array ' + Array.isArray(list0));
+        // console.log(list0);
+        // console.log(list0.length);
         for (i=0; i<list0.length; i++) {
-          console.log(i);
+          // console.log(i);
           var user0 = list0[i].email;
-          console.log(user0);
+          // console.log(user0);
           var type0 = list0[i].type;
-          console.log(type0);
+          // console.log(type0);
         let html0='<style>td,th{border:0px solid black;}</style><table>';
         html0+='<tr><td>' + user0 + '</td></tr>';
         html0+='</table>';
         var myTable0 = document.getElementById("idCBRecentUsers0s");
         myTable0.insertAdjacentHTML("beforeend", html0);
         }
+    }
+
+    document.getElementById("btnEnable").addEventListener("click",enableCBS);
+    function enableCBS(){
+        var sernum = document.getElementById("idCBsns").value;
+        google.script.run
+        .withSuccessHandler(printEnableCB)
+        .enableCB(sernum);
+    }
+
+      window.printEnableCB = function(serno) {
+        document.getElementById("idActionResult").style.backgroundColor="#81c784";
+        document.getElementById("idActionResult").value = "Device " + serno + " has been enabled";
+    }
+    
+    document.getElementById("btnDisable").addEventListener("click",disableCBS);
+    function disableCBS(){
+        var sernum = document.getElementById("idCBsns").value;
+        google.script.run
+        .withSuccessHandler(printDisableCB)
+        .disableCB(sernum);
+    }
+
+      window.printDisableCB = function(serno) {
+        document.getElementById("idActionResult").style.backgroundColor="#e57373";
+        document.getElementById("idActionResult").value = "Device " + serno + " has been disabled";
     }
 </script>
