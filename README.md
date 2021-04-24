@@ -1,5 +1,6 @@
 # CB_QueryDetails
-Webapp that queries Google ChromeosDevices API for details on provided serial number in URL
+Webapp that queries Google ChromeosDevices API for details on provided serial number in URL.
+## Now with the ability to Disable and Re-enable devices!
 
 ![CB_QueryDetails interface with result](https://drive.google.com/uc?export=download&id=1f8lgyF9bBXHGlbmMxj4bxB5OR6O3RWF7)
 
