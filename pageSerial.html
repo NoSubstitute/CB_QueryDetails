@@ -9,21 +9,27 @@
     <?!= include("page-css"); ?>
   </head>
   <body>
- 
   <div class="container">
-
-    <h2>CB_QueryDetails</h2>
-    <h3>Showing Device Details of incoming serial
-
-    <h5>Results</h5>
+    <h4>CB_QueryDetails</h4>
+    <h6>Showing Device Details of provided serial</h6>
+    <h5>Set new status on current device</h5>
+    <div class="row">
+      <button class="waves-effect waves-light btn-small green lighten-2" id="btnEnable">Enable (ACTIVE)</button>
+      <button class="waves-effect waves-light btn-small red lighten-2" id="btnDisable">Disable (DISABLED)</button>
+      <!-- Had to disable this, or else the colours wouldn't change. -->
+      <!-- <input type="text" id="idActionResult" class="card-panel #f5f5f5 grey lighten-4 validate"> -->
+      <input type="text" id="idActionResult" class="card-panel">
+      <!-- Turns out I didn't have to remove all class references. -->
+      <!-- <input type="text" id="idActionResult"> -->
+    </div>
     <table class="striped">
         <tr>
-            <td><h6>Given Serial</h6></td>
+            <td><h6>Provided Serial</h6></td>
             <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBsns"></h6></td>
         </tr>
         <tr>
-            <td><h6>Found Serial</h6></td>
-            <td><h6><input type="text" style="border:none; box-shadow: none;" id="idCBs"></h6></td>
+            <td><h6><b>Found Serial</b></h6></td>
+            <td><h6><b><input type="text" style="border:none; box-shadow: none;" id="idCBs"></b></h6></td>
         </tr>
         <tr>
             <td><h6>Device OU</h6></td>
@@ -87,6 +93,5 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <?!= include("pageSerial-js"); ?>
-
   </body>
 </html>
