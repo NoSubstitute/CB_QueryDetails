@@ -2,7 +2,7 @@
 	  document.getElementById('idCBsns').readOnly = true;
     document.getElementById('idCBs').readOnly = true;
     document.getElementById('idCBOUs').readOnly = true;
-    document.getElementById('idCBRecents').readOnly = true;
+    // document.getElementById('idCBRecents').readOnly = true;
     document.getElementById('idCBstatuss').readOnly = true;
     document.getElementById('idCBlastsyncs').readOnly = true;
     document.getElementById('idCBosversions').readOnly = true;
@@ -11,9 +11,11 @@
     document.getElementById('idCBnotes').readOnly = true;
     document.getElementById('idCBmacAddresss').readOnly = true;
     document.getElementById('idCBOUautoUpdateExpirations').readOnly = true;
-    document.getElementById('idCBRecents').readOnly = true;
     document.getElementById('idCBRecentUsers0s').readOnly = true;
     document.getElementById('idActionResult').readOnly = true;
+    document.getElementById('idCBsModel').readOnly = true;
+    document.getElementById('idLan2').readOnly = true;
+    document.getElementById('idWan2').readOnly = true;
 
     document.addEventListener("DOMContentLoaded", function() {
     fetchCBOUs()
@@ -37,11 +39,24 @@
         document.getElementById('idCBnotes').value = CBOU[8];
         document.getElementById('idCBmacAddresss').value = CBOU[9];
         document.getElementById('idCBOUautoUpdateExpirations').value = CBOU[10];
-        document.getElementById('idCBRecents').value = CBOU[11];
+        // document.getElementById('idCBRecents').value = CBOU[11];
+        document.getElementById('idLan2').value = lan2;
+        document.getElementById('idWan2').value = wan2;
+        document.getElementById('idCBsModel').value = CBOU[13];
 
         document.getElementById('idActionResult').value = "Current status: " + CBOU[3];
         
         // console.log('Device info: ' + CBOU);
+
+        var list2 = CBOU[14];
+        console.log('list2 is array ' + Array.isArray(list2));
+        console.log(list2);
+          var lan2 = list2[0].ipAddress;
+          console.log(lan2);
+          var wan2 = list2[0].wanIpAddress;
+          console.log(wan2);
+          document.getElementById('idLan2').value = lan2;
+          document.getElementById('idWan2').value = wan2;
 
         var list0 = CBOU[12];
         // console.log('list0 is array ' + Array.isArray(list0));
