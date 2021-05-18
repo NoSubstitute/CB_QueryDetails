@@ -31,6 +31,8 @@ function findCBOUs() {
     if (chromebooklist[0].annotatedAssetId) {var asset = chromebooklist[0].annotatedAssetId} else {var asset = ""};
     if (chromebooklist[0].annotatedUser) {var user = chromebooklist[0].annotatedUser} else {var user = ""};
     if (chromebooklist[0].notes) {var note = chromebooklist[0].notes} else {var note = ""};
+    if (chromebooklist[0].model) {var CBsModel = chromebooklist[0].model} else {var CBsModel = ""};
+    if (chromebooklist[0].lastKnownNetwork) {var CBIP3 = chromebooklist[0].lastKnownNetwork} else {var CBIP3 = ""};
     if (chromebooklist[0].macAddress) {var macAddress = chromebooklist[0].macAddress} else {var macAddress = ""};
     if (chromebooklist[0].autoUpdateExpiration) {var autoUpdateExpiration = chromebooklist[0].autoUpdateExpiration} else {var autoUpdateExpiration = ""};
     // Swedish SI date format of AUE, YYYY-MM-DD
@@ -48,5 +50,5 @@ function findCBOUs() {
   }
   
   // return [serno,serial, ou, status, lastsync, osversion, asset, user, note, macAddress, aue, recentUser, recentUsers];  
-  return [serno,serial, ou, status, LastSyncProper, osversion, asset, user, note, macAddress, aue, recentUser, recentUsers];  
+  return [serno,serial, ou, status, LastSyncProper, osversion, asset, user, note, macAddress, aue, recentUser, recentUsers, CBsModel, CBIP3];  
 }
