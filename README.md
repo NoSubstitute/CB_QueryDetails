@@ -6,7 +6,7 @@ Webapp that queries Google ChromeosDevices API for details on provided serial nu
 
 ## The rest of the instructions are [in the wiki](https://github.com/NoSubstitute/CB_QueryDetails/wiki)
 # Demo site here
-https://tools.no-substitute.com/cb-tools/cb_lookup
+https://sites.google.com/no-substitute.com/tools
 
 [PRIVACY POLICY](https://tools.no-substitute.com/pp)
 
