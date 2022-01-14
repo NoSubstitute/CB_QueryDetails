@@ -13,5 +13,3 @@ https://sites.google.com/no-substitute.com/tools
 tl;dr - No data is sent anywhere, except between you and Google.
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/NoSubstitute/25USD)
-
-Test
