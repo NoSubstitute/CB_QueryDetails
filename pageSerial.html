@@ -10,75 +10,73 @@
   </head>
   <body>
   <div class="container">
-    <h4>CB_QueryDetails</h4>
-    <h6>Showing Device Details of provided serial</h6>
-    <h5>Set new status on current device</h5>
+    <table class="rubrik">
+      <tr>
+          <td><h4>CB_QueryDetails</h4></td>
+          <td><button class="waves-effect waves-light btn-small blue lighten-2" id="btnRefresh">Update page</button></td>
+    </tr>
+    </table>
+    <table class="rader">
+      <tr>
+          <td><input type="text" style="border:none; box-shadow: none;" id="idInfo"></td>
+          <td><input type="text" style="border:none; box-shadow: none;" id="idCBs"></td>
+      </tr>
+      <tr>
+          <td>Device Model</td>
+          <td><input type="text" style="border:none; box-shadow: none;" id="idCBsModel"></td>
+      </tr>
+    </table>
+    <h6><b>Manage current device</b></h6>
+    <h7 style="color:black">WIPE, Removes ALL Profiles.</h7>
     <div class="row">
-      <button class="waves-effect waves-light btn-small green lighten-2" id="btnEnable">Enable (ACTIVE)</button>
-      <button class="waves-effect waves-light btn-small red lighten-2" id="btnDisable">Disable (DISABLED)</button>
-      <!-- Had to disable this, or else the colours wouldn't change. -->
-      <!-- <input type="text" id="idActionResult" class="card-panel #f5f5f5 grey lighten-4 validate"> -->
-      <input type="text" id="idActionResult" class="card-panel">
-      <!-- Turns out I didn't have to remove all class references. -->
-      <!-- <input type="text" id="idActionResult"> -->
+    <h7 style="color:black">RESET, Resets the device/powerwash.</h7>
+    <div class="row">
+    <h7 style="color:black">ACTIVATE, device that is active.</h7>
+    <div class="row">
+      <h7 style="color:black">DISABLE, Lock Device (lost/stolen).</h7>
+    <div class="row">
+    <h7 style="color:black">DEPROVISON, device is not managed (scrapped).</h7><br><br>
+    <h7 style="color:black"><i>The DEPROVISION button below is for SCRAPPING only.</i></h7><br>
+    <h7 style="color:grey">Note that DEPROVISIONED is any device that is not managed (scrapped, replaced, sold, etc).</h7>
+    <div class="row">
+      <button class="waves-effect waves-light btn-small blue lighten-2" id="btnWipe" disabled>Wipe</button>
+      <button class="waves-effect waves-light btn-small orange lighten-2" id="btnReset" disabled>Reset</button>
+      <button class="waves-effect waves-light btn-small green lighten-2" id="btnEnable" disabled>ACTIVATE</button>
+      <button class="waves-effect waves-light btn-small red lighten-2" id="btnDisable" disabled>DISABLE</button>
+      <button class="waves-effect waves-light btn-small purple lighten-2" onclick="confirmDeprovision()" id="btnDeprovision" disabled>DEPROVISION</button>
+      <br><br><input type="text" id="idActionResult" class="card-panel">
     </div>
-    <table class="striped">
-        <tr>
-            <td>Provided Serial</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBsns"></td>
-        </tr>
-        <tr>
-            <td><b>Found Serial</b></td>
-            <td><b><input type="text" style="border:none; box-shadow: none;" id="idCBs"></b></td>
-        </tr>
-        <tr>
-            <td>Device OU</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBOUs"></td>
-        </tr>
-        <tr>
-            <td>Device Status</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBstatuss"></td>
-        </tr>
+    </div>
+    <table class="rader">
         <tr>
             <td>Last Sync</td>
             <td><input type="text" style="border:none; box-shadow: none;" id="idCBlastsyncs"></td>
         </tr>
         <tr>
-            <td>ChromeOS Version</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBosversions"></td>
+            <td>Device OU</td>
+            <td id="selectinput"></td>
         </tr>
         <tr>
             <td>Annotated AssetId</td>
             <td><input type="text" style="border:none; box-shadow: none;" id="idCBassets"></td>
         </tr>
         <tr>
-            <td>Annotated User</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBusers"></td>
+            <td>chromeOS Version</td>
+            <td><input type="text" style="border:none; box-shadow: none;" id="idCBosversions"></td>
         </tr>
         <tr>
-            <td>Notes</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBnotes"></td>
+            <td>Manufacture date</td>
+            <td><input type="text" style="border:none; box-shadow: none;" id="idCBManufactureDate"></td>
         </tr>
         <tr>
             <td>Auto Update Expiration</td>
             <td><input type="text" style="border:none; box-shadow: none;" id="idCBOUautoUpdateExpirations"></td>
         </tr>
         <tr>
-            <td>Device Model</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBsModel"></td>
-        </tr>
-        <!--<tr>
-            <td>Most Recent User</td>
-            <td><input type="text" style="border:none; box-shadow: none;" id="idCBRecents"></td>
-        </tr>-->
-        <tr>
-            <td>MAC Adress</td>
+            <td>MAC Address</td>
             <td><input type="text" style="border:none; box-shadow: none;" id="idCBmacAddresss"></td>
         </tr>
-    </table>
-    <table>
       <tr>
-          <td>IP-adresser</td>
           <td>LAN IP<input type="text" style="border:none; box-shadow: none;" id="idLan2"></td>
           <td>WAN IP<input type="text" style="border:none; box-shadow: none;" id="idWan2"></td>
       </tr>
@@ -86,23 +84,15 @@
     <table>
       <thead>
       <tr>
-          <th><h6>List of recent users</h6></th>
+          <th><h6>List of recent users (most recent > least recent)</th>
       </tr>
       </thead>
       <tbody id="idCBRecentUsers0s">
       </tbody>
     </table>
-    <!-- <table>
-      <thead>
-      <tr>
-          <th><h6>List of recent users Array</h6></th>
-      </tr>
-      </thead>
-      <tbody id="idCBRecentUsers3">
-      </tbody>
-    </table> -->
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 <?!= include("pageSerial-js"); ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

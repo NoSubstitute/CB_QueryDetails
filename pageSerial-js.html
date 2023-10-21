@@ -1,25 +1,23 @@
 <script>
-	  document.getElementById('idCBsns').readOnly = true;
-    document.getElementById('idCBs').readOnly = true;
-    document.getElementById('idCBOUs').readOnly = true;
-    // document.getElementById('idCBRecents').readOnly = true;
-    document.getElementById('idCBstatuss').readOnly = true;
-    document.getElementById('idCBlastsyncs').readOnly = true;
-    document.getElementById('idCBosversions').readOnly = true;
-    document.getElementById('idCBassets').readOnly = true;
-    document.getElementById('idCBusers').readOnly = true;
-    document.getElementById('idCBnotes').readOnly = true;
-    document.getElementById('idCBmacAddresss').readOnly = true;
-    document.getElementById('idCBOUautoUpdateExpirations').readOnly = true;
-    document.getElementById('idCBRecentUsers0s').readOnly = true;
-    document.getElementById('idActionResult').readOnly = true;
-    document.getElementById('idCBsModel').readOnly = true;
-    document.getElementById('idLan2').readOnly = true;
-    document.getElementById('idWan2').readOnly = true;
-
-    document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById('idCBs').readOnly = true;
+  document.getElementById('idCBsModel').readOnly = true;
+  document.getElementById('idActionResult').readOnly = true;
+  document.getElementById('idCBlastsyncs').readOnly = true;
+  //document.getElementById('idCBOUs').readOnly = true;
+  document.getElementById('idCBassets').readOnly = false;
+  document.getElementById('idCBosversions').readOnly = true;
+  document.getElementById('idCBManufactureDate').readOnly = true;
+  document.getElementById('idCBOUautoUpdateExpirations').readOnly = true;
+  document.getElementById('idCBmacAddresss').readOnly = true;
+  document.getElementById('idLan2').readOnly = true;
+  document.getElementById('idWan2').readOnly = true;
+  document.getElementById('idCBRecentUsers0s').readOnly = true;
+    
+  document.addEventListener("DOMContentLoaded", function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
     fetchCBOUs()
-});
+  });
 
     function fetchCBOUs(){
         google.script.run
@@ -27,47 +25,90 @@
         .findCBOUs();
     }
 
-        window.printCBOUs = function(CBOU) {
-        document.getElementById('idCBsns').value = CBOU[0];
+      window.printCBOUs = function(CBOU) {
         document.getElementById('idCBs').value = CBOU[1];
-        document.getElementById('idCBOUs').value = CBOU[2];
-        document.getElementById('idCBstatuss').value = CBOU[3];
+        document.getElementById('idCBsModel').value = CBOU[2];
         document.getElementById('idCBlastsyncs').value = CBOU[4];
-        document.getElementById('idCBosversions').value = CBOU[5];
-        document.getElementById('idCBassets').value = CBOU[6];
-        document.getElementById('idCBusers').value = CBOU[7];
-        document.getElementById('idCBnotes').value = CBOU[8];
-        document.getElementById('idCBmacAddresss').value = CBOU[9];
+        // document.getElementById('idCBOUs').value = CBOU[6];
+        document.getElementById('idCBassets').value = CBOU[7];
+        document.getElementById('idCBosversions').value = CBOU[8];
+        document.getElementById('idCBManufactureDate').value = CBOU[9];
         document.getElementById('idCBOUautoUpdateExpirations').value = CBOU[10];
-        // document.getElementById('idCBRecents').value = CBOU[11];
+        document.getElementById('idCBmacAddresss').value = CBOU[11];
         document.getElementById('idLan2').value = lan2;
         document.getElementById('idWan2').value = wan2;
-        document.getElementById('idCBsModel').value = CBOU[13];
 
-        document.getElementById('idActionResult').value = "Current status: " + CBOU[3];
-        
-        // console.log('Device info: ' + CBOU);
+        document.getElementById('idActionResult').value = "Current status is " + CBOU[3];
 
-        var list2 = CBOU[14];
-        console.log('list2 is array ' + Array.isArray(list2));
-        console.log(list2);
+        let status = CBOU[3];
+        if (status == "ACTIVE") {
+          btnWipe.disabled=false;
+          btnReset.disabled=false;
+          btnEnable.disabled=true;
+          btnDisable.disabled=false;
+          btnDeprovision.disabled=false;
+          document.getElementById("idActionResult").style.backgroundColor="#81c784";
+          document.getElementById('idInfo').value = "Displays information about device with the following serial number";
+        } else if (status == "DISABLED") {
+          btnWipe.disabled=true;
+          btnReset.disabled=true;
+          btnEnable.disabled=false;
+          btnDisable.disabled=true;
+          btnDeprovision.disabled=false;
+          document.getElementById("idActionResult").style.backgroundColor="#e57373";
+          document.getElementById('idInfo').value = "Displays information about device with the following serial number";
+        } else if (status == null) {
+          btnWipe.disabled=true;
+          btnReset.disabled=true;
+          btnEnable.disabled=true;
+          btnDisable.disabled=true;
+          btnDeprovision.disabled=true;
+          btnRefresh.disabled=true;
+          document.getElementById("idActionResult").style.backgroundColor="#ffc90e";
+          document.getElementById("idActionResult").value = "The serial number you selected does not appear to belong to your school. See in CB_LookUp. Contact your IT partner if you have any questions.";
+          document.getElementById("idCBs").value = "";
+          document.getElementById('idInfo').value = "";
+          document.getElementById('idLan2').value = "";
+          document.getElementById('idWan2').value = "";
+        } else if (status == "") {
+          btnWipe.disabled=true;
+          btnReset.disabled=true;
+          btnEnable.disabled=true;
+          btnDisable.disabled=true;
+          btnDeprovision.disabled=true;
+          btnRefresh.disabled=true;
+          document.getElementById("idActionResult").style.backgroundColor="#ffc90e";
+          document.getElementById("idActionResult").value = "You seem to lack rights to view device details. Contact your IT partner.";
+          document.getElementById("idCBs").value = "";
+          document.getElementById("idInfo").value = "";
+        } else {
+          btnWipe.disabled=true;
+          btnReset.disabled=true;
+          btnEnable.disabled=true;
+          btnDisable.disabled=true;
+          btnDeprovision.disabled=true;
+          // btnDeprovision.disabled=false; // This is for testing error messages for devices already DEPROVISIONED
+          document.getElementById("idActionResult").style.backgroundColor="#ba68c8";
+          document.getElementById('idInfo').value = "Displays information about device with the following serial number";
+        }
+
+        if (CBOU[12] !=""){
+        var list2 = CBOU[12];
           var lan2 = list2[0].ipAddress;
-          console.log(lan2);
           var wan2 = list2[0].wanIpAddress;
-          console.log(wan2);
           document.getElementById('idLan2').value = lan2;
           document.getElementById('idWan2').value = wan2;
+        } else {
+          var lan2 = "Not available";
+          var wan2 = "Not available";
+          document.getElementById('idLan2').value = lan2;
+          document.getElementById('idWan2').value = wan2;
+        }
 
-        var list0 = CBOU[12];
-        // console.log('list0 is array ' + Array.isArray(list0));
-        // console.log(list0);
-        // console.log(list0.length);
+        var list0 = CBOU[13];
         for (i=0; i<list0.length; i++) {
-          // console.log(i);
           var user0 = list0[i].email;
-          // console.log(user0);
           var type0 = list0[i].type;
-          // console.log(type0);
         let html0='<style>td,th{border:0px solid black;}</style><table>';
         html0+='<tr><td>' + user0 + '</td></tr>';
         html0+='</table>';
@@ -75,10 +116,43 @@
         myTable0.insertAdjacentHTML("beforeend", html0);
         }
     }
+        document.getElementById("btnWipe").addEventListener("click",wipeCBS);
+    function wipeCBS(){
+        var sernum = document.getElementById("idCBs").value;
+        google.script.run
+        .withSuccessHandler(printWipeCB)
+        .wipeCB(sernum);
+    }
 
+      window.printWipeCB = function(serno) {
+        document.getElementById("idActionResult").style.backgroundColor="#81c784";
+        document.getElementById("idActionResult").value = " The device " + serno + " will have profiles deleted";
+        btnWipe.disabled=true;
+        btnReset.disabled=true;
+        btnEnable.disabled=true;
+        btnDisable.disabled=true;
+        btnDeprovision.disabled=true;
+      }
+    document.getElementById("btnReset").addEventListener("click",resetCBS);
+    function resetCBS(){
+        var sernum = document.getElementById("idCBs").value;
+        google.script.run
+        .withSuccessHandler(printResetCB)
+        .resetCB(sernum);
+    }
+
+      window.printResetCB = function(serno) {
+        document.getElementById("idActionResult").style.backgroundColor="#81c784";
+        document.getElementById("idActionResult").value = " The device " + serno + " will be powerwashed";
+        btnWipe.disabled=true;
+        btnReset.disabled=true;
+        btnEnable.disabled=true;
+        btnDisable.disabled=true;
+        btnDeprovision.disabled=true;
+    }
     document.getElementById("btnEnable").addEventListener("click",enableCBS);
     function enableCBS(){
-        var sernum = document.getElementById("idCBsns").value;
+        var sernum = document.getElementById("idCBs").value;
         google.script.run
         .withSuccessHandler(printEnableCB)
         .enableCB(sernum);
@@ -86,12 +160,17 @@
 
       window.printEnableCB = function(serno) {
         document.getElementById("idActionResult").style.backgroundColor="#81c784";
-        document.getElementById("idActionResult").value = "Device " + serno + " has been enabled";
+        document.getElementById("idActionResult").value = " The device " + serno + " has been activated - Click UPDATE PAGE to see result";
+        btnWipe.disabled=true;
+        btnReset.disabled=true;
+        btnEnable.disabled=true;
+        btnDisable.disabled=true;
+        btnDeprovision.disabled=true;
     }
     
     document.getElementById("btnDisable").addEventListener("click",disableCBS);
     function disableCBS(){
-        var sernum = document.getElementById("idCBsns").value;
+        var sernum = document.getElementById("idCBs").value;
         google.script.run
         .withSuccessHandler(printDisableCB)
         .disableCB(sernum);
@@ -99,6 +178,52 @@
 
       window.printDisableCB = function(serno) {
         document.getElementById("idActionResult").style.backgroundColor="#e57373";
-        document.getElementById("idActionResult").value = "Device " + serno + " has been disabled";
+        document.getElementById("idActionResult").value = " The device " + serno + " will be disabled - Click UPDATE PAGE to see result";
+        btnWipe.disabled=true;
+        btnReset.disabled=true;
+        btnEnable.disabled=true;
+        btnDisable.disabled=true;
+        btnDeprovision.disabled=true;
     }
+
+    function confirmDeprovision() {
+        let confirmDeprovision = confirm("\n---------------------------------------------------\nTHE DEVICE WILL NOW BE PERMANENTLY SCRAPPED.\nNOTE! THIS ACTION IS IRREVOCABLE.\n\Select OK to mark the device for SCRAPPING.\nCancel undoes the action.\n---------------------------------------------------");
+        
+        if (confirmDeprovision) {
+          alert("\n---------------------------------------------------\nThe device is now marked as scrapped (deprovisioned).\n---------------------------------------------------");
+
+        var sernum = document.getElementById("idCBs").value;
+        google.script.run
+        .withSuccessHandler(printDeprovisionCB)
+        .deprovisionCB(sernum);
+
+        } else {
+          alert("\n---------------------------------------------------\nYou canceled scrapping (deprovisioning). Nothing has changed.\n---------------------------------------------------");
+        }
+      }
+
+    window.printDeprovisionCB = function(feedback) {
+        var serial = feedback[0];
+        var result = feedback[1];
+        var bgcolor = feedback[2];
+        document.getElementById("idActionResult").style.backgroundColor=bgcolor;
+        document.getElementById("idActionResult").value = " The device " + serial + " " + result;
+        btnWipe.disabled=true;
+        btnReset.disabled=true;
+        btnEnable.disabled=true;
+        btnDisable.disabled=true;
+        btnDeprovision.disabled=true;
+    }
+
+document.getElementById("btnRefresh").addEventListener("click",getUrl);
+function getUrl(){
+    var sernum = document.getElementById("idCBs").value;
+    google.script.run
+    .withSuccessHandler(function(url){
+       var realWebAddress = url + '?sn=' + sernum
+       window.open(realWebAddress, "_top");
+     })
+    .getScriptURL();
+}
+
 </script>

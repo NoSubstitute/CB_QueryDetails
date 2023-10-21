@@ -1,4 +1,4 @@
-function disableCB(sernum) {
+function wipeCB(sernum) {
   var serno = sernum;
   // Since we provided serial numbers, convert each to device-id
   var sernoquery = "id:" + serno;
@@ -10,11 +10,10 @@ function disableCB(sernum) {
     var id = chromebooklist[0].deviceId;
     // For each line, try to update the device with given data, and log the result
     try {
-      var result = AdminDirectory.Chromeosdevices.action({ 'action': 'disable' }, 'my_customer', id);
-
-      // If the update fails for some reason, log the error
+      AdminDirectory.Customer.Devices.Chromeos.issueCommand({ 'commandType': ('WIPE_USERS') }, 'my_customer', id)
+      console.log(err)
     } catch (err) {
-    }
+}
   }
   return [serno];
 }
